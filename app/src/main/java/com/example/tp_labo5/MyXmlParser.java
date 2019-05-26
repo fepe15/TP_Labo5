@@ -53,7 +53,7 @@ public class MyXmlParser {
                 else if (event == XmlPullParser.END_TAG){
                     if ("item".equals(xmlPullParser.getName())){
 
-                        Log.d("Noticia", noti.toString());
+                        Log.d("Noticiaaaaaaa:", noti.toString());
                         noticias.add(noti);
                     }
                 }

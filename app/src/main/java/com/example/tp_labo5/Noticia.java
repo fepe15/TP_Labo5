@@ -43,7 +43,9 @@ public class Noticia {
 
     @Override
     public String toString() {
-        return this.titulo + this.descripcion + this.urlImagen;
+        return "Este es el titulo: " + this.titulo +
+                " Esta es la descri: " +  this.descripcion +
+                "Esta es la url: " + this.urlImagen;
     }
 
     public byte[] getFileFoto() {
