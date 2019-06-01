@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyXmlParser {
-    public static List<Noticia> obtenerNoticias(String xml) {
 
+    public static List<Noticia> obtenerNoticias(String xml) {
 
         List<Noticia> noticias = new ArrayList<>();
 
