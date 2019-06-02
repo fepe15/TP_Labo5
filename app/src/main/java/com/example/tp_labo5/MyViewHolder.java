@@ -12,7 +12,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     TextView txtDescripcion;
     ImageView imagen;
     private int posicion;
-    MyOnItemClick myOnItemClick;
+    private MyOnItemClick myOnItemClick;
 
 
 
@@ -20,7 +20,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         super(itemView);
         txtTitulo = (TextView) itemView.findViewById(R.id.txtTitulo);
         txtDescripcion = (TextView) itemView.findViewById(R.id.txtDescripcion);
-        imagen = (ImageView) itemView.findViewById(R.id.img);
+        imagen = (ImageView) itemView.findViewById(R.id.imagen);
         this.myOnItemClick = myOnItemClick;
         itemView.setOnClickListener(this);
     }

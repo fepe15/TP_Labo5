@@ -32,7 +32,6 @@ public class MyConnection {
             urlConnection.connect();
         }
         int response = urlConnection.getResponseCode();
-        Log.d("http", "Response code:" + response);
         if(response==200) {
             InputStream is = urlConnection.getInputStream();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

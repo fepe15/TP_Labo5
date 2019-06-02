@@ -17,10 +17,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Handler.Callback, MyOnItemClick {
 
+    public static final int TEXTO = 1;
+    public static final int IMAGEN = 2;
+
     MyAdapter adapter;
     List<Noticia> listNoticias;
     MyOnItemClick myOnItemClick;
     Handler handler;
+    String titulo;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +39,14 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvNoticias.setLayoutManager(layoutManager);
 
-        adapter = new MyAdapter(listNoticias, this);
+        adapter = new MyAdapter(listNoticias, this,this.handler);
         rvNoticias.setAdapter(adapter);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("NotiTecno");
+        this.actionBar = getSupportActionBar();
+
+        actionBar.setTitle("Bienvenido a NotiTecno...");
+        actionBar.setSubtitle("Elija su pagina de noticias --->");
+
         //actionBar.setDisplayHomeAsUpEnabled(true);
 
 
@@ -48,16 +56,20 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
     @Override
     public boolean handleMessage(Message msg) {
-
-
-        this.listNoticias = this.adapter.setListNoticias((List<Noticia>)msg.obj);
-        adapter.notifyDataSetChanged();
+        if (msg.arg2 == TEXTO) {
+            this.listNoticias = this.adapter.setListNoticias((List<Noticia>) msg.obj);
+            adapter.notifyDataSetChanged();
+        }
+        else if (msg.arg2 == IMAGEN) {
+                this.adapter.setImagen((byte[]) msg.obj, msg.arg1);
+                adapter.notifyItemChanged(msg.arg1);
+        }
         return false;
     }
 
     @Override
     public void onItemClick(View v, int position) {
-
+        this.listNoticias.get(position).getUrlImagen();
     }
 
 
@@ -81,7 +93,13 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         else if(item.getItemId()== R.id.txtClarin){
             pagina = "https://www.clarin.com/rss/tecnologia/";
         }
-        MyThread myThread = new MyThread(this.handler,pagina, "XML");
+        else if(item.getItemId()== R.id.txtPerfil){
+            pagina = "https://www.perfil.com/rss/tecnologia";
+        }
+        this.titulo = (String) item.getTitle();
+        actionBar.setTitle("Tecno  " + this.titulo);
+        actionBar.setSubtitle("");
+        MyThread myThread = new MyThread(this.handler,pagina, "XML", 0);
         myThread.start();
         return super.onOptionsItemSelected(item);
     }

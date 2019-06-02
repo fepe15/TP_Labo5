@@ -40,7 +40,7 @@ public class MyXmlParser {
                     if ("link".equals(xmlPullParser.getName()))
                     {
                         if (noti!=null) {
-                            noti.setUrlImagen(xmlPullParser.nextText());
+                            noti.setLinkNoticia(xmlPullParser.nextText());
                         }
                     }
                     if ("description".equals(xmlPullParser.getName()))
@@ -49,11 +49,20 @@ public class MyXmlParser {
                             noti.setDescripcion(xmlPullParser.nextText());
                         }
                     }
+                    if ("enclosure".equals(xmlPullParser.getName()))
+                    {
+                        if (event == XmlPullParser.START_TAG)
+                        {
+                            if (noti!=null) {
+                             noti.setUrlImagen(xmlPullParser.getAttributeValue(null, "url"));;
+                             Log.d("urlllllllll::::::::::", noti.getUrlImagen().toString());
+                            }
+                        }
+                    }
                 }
                 else if (event == XmlPullParser.END_TAG){
                     if ("item".equals(xmlPullParser.getName())){
-
-                        Log.d("Noticiaaaaaaa:", noti.toString());
+                        Log.d("Noticia: ", noti.toString());
                         noticias.add(noti);
                     }
                 }

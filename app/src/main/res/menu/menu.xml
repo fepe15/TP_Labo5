@@ -9,12 +9,16 @@
         >
     </item>
     <item
-        android:title="IProfesional"
+        android:title="iProfesional.com"
         android:id="@+id/txtPofesional">
     </item>
     <item
-        android:title="Clarin"
+        android:title="Diario Clarin"
         android:id="@+id/txtClarin">
+    </item>
+    <item
+        android:title="Diario Perfil"
+        android:id="@+id/txtPerfil">
     </item>
 
 </menu>

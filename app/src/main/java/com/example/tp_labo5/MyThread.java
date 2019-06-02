@@ -16,10 +16,11 @@ public class MyThread extends Thread {
     private int posicion;
     String tipo;
 
-    public MyThread(Handler handler , String url, String tipo){
+    public MyThread(Handler handler , String url, String tipo, int posicion){
         this.handler = handler;
         this.url = url;
         this.tipo = tipo;
+        this.posicion = posicion;
     }
 
     @Override
@@ -27,14 +28,18 @@ public class MyThread extends Thread {
         try {
             MyConnection connection = new MyConnection("GET");
             Message msg = new Message();
-            String resConexion = connection.getStringData(url);
+            msg.arg1 = this.posicion;
             if (this.tipo.equals("XML")) {
+                String resConexion = connection.getStringData(url);
                 msg.obj = MyXmlParser.obtenerNoticias(resConexion);
+                msg.arg2 = MainActivity.TEXTO;
                 this.handler.sendMessage(msg);
             }
-            else if (this.tipo.equals("JSON")) {
-                Log.d("Estro","JSON") ;
-                msg.obj = resConexion;
+            if (this.tipo.equals("IMAGEN")){
+                Log.d("Devuelve imagen", "");
+                byte[] imagen = connection.getImageData(url);
+                msg.obj = imagen;
+                msg.arg2 = MainActivity.IMAGEN;
                 this.handler.sendMessage(msg);
             }
         } catch (IOException e) {
