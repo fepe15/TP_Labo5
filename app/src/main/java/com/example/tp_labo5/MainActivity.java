@@ -1,5 +1,6 @@
 package com.example.tp_labo5;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
 
 
+
+
         //lo ideal es crear los hilos e iniciarlos en onStart() y luego hay que detenerlos en onStop()
             }
 
@@ -69,7 +72,9 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
     @Override
     public void onItemClick(View v, int position) {
-        this.listNoticias.get(position).getUrlImagen();
+        Intent i = new Intent(this, WebActivity.class);
+        i.putExtra("page",this.listNoticias.get(position).getLinkNoticia());
+        this.startActivity(i);
     }
 
 
