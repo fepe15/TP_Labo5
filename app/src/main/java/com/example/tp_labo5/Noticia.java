@@ -1,17 +1,17 @@
 package com.example.tp_labo5;
 
+import java.util.Date;
+
 public class Noticia {
 
     private String titulo;
     private String descripcion;
     private String urlImagen;
     private String linkNoticia;
+    private String fecha;
+    private String fuente;
     private byte[] fileImagen;
     private boolean cargoImagen;
-
-    public Noticia(){
-        this.cargoImagen = false;
-    }
 
     public Noticia(String titulo, String descripcion, String urlImagen){
         this.titulo = titulo;
@@ -19,9 +19,6 @@ public class Noticia {
         this.urlImagen = urlImagen;
         this.cargoImagen = false;
     }
-
-
-
 
     public String getTitulo() {
         return titulo;
@@ -63,6 +60,16 @@ public class Noticia {
 
     public void setLinkNoticia(String linkNoticia) {this.linkNoticia = linkNoticia;}
 
+    public String getFecha() { return fecha; }
+
+    public void setFecha(String fecha) {this.fecha = fecha;}
+
+    public String getFuente() {return fuente;}
+
+    public void setFuente(String fuente) {this.fuente = fuente;}
+
+    public Noticia(){ this.cargoImagen = false;}
+
 
     @Override
     public String toString() {
@@ -71,8 +78,6 @@ public class Noticia {
                 "Este es el link de la noti: " + this.linkNoticia +
                 "Esta es la url: " + this.urlImagen;
     }
-
-
 
 
 }

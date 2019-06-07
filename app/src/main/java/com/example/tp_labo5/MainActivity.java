@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         actionBar.setTitle("Bienvenido a NotiTecno...");
         actionBar.setSubtitle("Elija su pagina de noticias --->");
 
+  //    MyDialog miDialog = new MyDialog();
+   //   miDialog.show(getSupportFragmentManager(), "manager" );
+
         //actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-
 
 
         //lo ideal es crear los hilos e iniciarlos en onStart() y luego hay que detenerlos en onStop()

@@ -22,11 +22,20 @@ public class MyXmlParser {
             xmlPullParser.setInput(new StringReader(xml));
             int event = xmlPullParser.getEventType();
             Noticia noti=null;
+            String fuente = null;
             while (event != XmlPullParser.END_DOCUMENT)
             {
 
                 if (event == XmlPullParser.START_TAG)
                 {
+                    if ("title".equals(xmlPullParser.getName()))
+                    {
+                        if (fuente == null) {
+                            fuente=xmlPullParser.nextText();
+                            fuente=fuente.substring(0,fuente.indexOf(" "));
+
+                        }
+                    }
                     if ("item".equals(xmlPullParser.getName()))
                     {
                         noti = new Noticia();
@@ -41,6 +50,13 @@ public class MyXmlParser {
                     {
                         if (noti!=null) {
                             noti.setLinkNoticia(xmlPullParser.nextText());
+                        }
+                    }
+                    if ("pubDate".equals(xmlPullParser.getName()))
+                    {
+                        if (noti!=null) {
+                            noti.setFecha(xmlPullParser.nextText().substring(5,16));
+
                         }
                     }
                     if ("description".equals(xmlPullParser.getName()))
@@ -63,6 +79,7 @@ public class MyXmlParser {
                 else if (event == XmlPullParser.END_TAG){
                     if ("item".equals(xmlPullParser.getName())){
                         Log.d("Noticia: ", noti.toString());
+                        noti.setFuente(fuente);
                         noticias.add(noti);
                     }
                 }

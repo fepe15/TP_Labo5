@@ -10,6 +10,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     TextView txtTitulo;
     TextView txtDescripcion;
+    TextView txtFuente;
+    TextView txtFecha;
     ImageView imagen;
     private int posicion;
     private MyOnItemClick myOnItemClick;
@@ -20,6 +22,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         super(itemView);
         txtTitulo = (TextView) itemView.findViewById(R.id.txtTitulo);
         txtDescripcion = (TextView) itemView.findViewById(R.id.txtDescripcion);
+        txtFuente = (TextView) itemView.findViewById(R.id.txtFuente);
+        txtFecha = (TextView) itemView.findViewById(R.id.txtFecha);
         imagen = (ImageView) itemView.findViewById(R.id.imagen);
         this.myOnItemClick = myOnItemClick;
         itemView.setOnClickListener(this);

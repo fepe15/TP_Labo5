@@ -35,13 +35,7 @@ public class WebActivity extends AppCompatActivity {
         ws.setJavaScriptEnabled(true);
 
         webView.loadUrl(this.page);
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("Cerrando.....","");
-        this.finish();
     }
 
     @Override
@@ -57,7 +51,7 @@ public class WebActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        this.finish();
         return super.onOptionsItemSelected(item);
     }
 }

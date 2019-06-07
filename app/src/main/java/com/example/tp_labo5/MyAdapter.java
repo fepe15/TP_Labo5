@@ -41,6 +41,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.txtTitulo.setText(noti.getTitulo());
         holder.txtDescripcion.setText(noti.getDescripcion());
+        holder.txtFuente.setText(noti.getFuente());
+        holder.txtFecha.setText(noti.getFecha());
 
          if (!noti.getCargoImagen()){
               Log.d("entrooooo", "carga segundo hilo y la imagen " + noti.getUrlImagen());
