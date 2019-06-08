@@ -46,11 +46,12 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
         this.actionBar = getSupportActionBar();
 
-        actionBar.setTitle("Bienvenido a NotiTecno...");
+        actionBar.setTitle("...NotiTecno...");
         actionBar.setSubtitle("Elija su pagina de noticias --->");
 
-  //    MyDialog miDialog = new MyDialog();
-   //   miDialog.show(getSupportFragmentManager(), "manager" );
+        MyDialog miDialog = new MyDialog();
+        miDialog.myHandler = handler;
+        miDialog.show(getSupportFragmentManager(), "manager" );
 
 
 
@@ -60,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     @Override
     public boolean handleMessage(Message msg) {
         if (msg.arg2 == TEXTO) {
-            this.listNoticias = this.adapter.setListNoticias((List<Noticia>) msg.obj);
+            this.adapter.setListNoticias((List<Noticia>) msg.obj);
+            this.listNoticias = this.adapter.getListNoticias();
             adapter.notifyDataSetChanged();
         }
         else if (msg.arg2 == IMAGEN) {
@@ -102,8 +104,6 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
             pagina = "https://www.perfil.com/rss/tecnologia";
         }
         this.titulo = (String) item.getTitle();
-        actionBar.setTitle("Tecno  " + this.titulo);
-        actionBar.setSubtitle("");
         MyThread myThread = new MyThread(this.handler,pagina, "XML", 0);
         myThread.start();
         return super.onOptionsItemSelected(item);

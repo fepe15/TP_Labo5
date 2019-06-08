@@ -63,9 +63,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return this.listNoticias.size();
     }
 
-    public List<Noticia> setListNoticias(List<Noticia> listNoticias) {
-        this.listNoticiasCompleta = new ArrayList<Noticia>(listNoticias);
-        return this.listNoticias = listNoticias;
+    public void setListNoticias(List<Noticia> noticias) {
+        this.listNoticias.addAll(noticias);
+        this.listNoticiasCompleta = new ArrayList<Noticia>(noticias);
     }
 
     public List<Noticia> getListNoticias(){
