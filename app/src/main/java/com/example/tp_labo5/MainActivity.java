@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Handler.Callback, MyOnItemClick {
+public class MainActivity extends AppCompatActivity implements Handler.Callback, MyOnItemClick, SearchView.OnQueryTextListener {
 
     public static final int TEXTO = 1;
     public static final int IMAGEN = 2;
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
   //    MyDialog miDialog = new MyDialog();
    //   miDialog.show(getSupportFragmentManager(), "manager" );
 
-        //actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         //lo ideal es crear los hilos e iniciarlos en onStart() y luego hay que detenerlos en onStop()
@@ -82,11 +82,11 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
-       /* MenuItem mi = menu.findItem(R.id.txtBuscar);
-        Ser sv = (SearchView) mi.getActionView();
-        sv.setOnQueryTextListener(this); */
+        MenuItem mi = menu.findItem(R.id.txtBuscar);
+        SearchView sv = (SearchView) mi.getActionView();
+        sv.setOnQueryTextListener(this);
 
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -107,5 +107,20 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         MyThread myThread = new MyThread(this.handler,pagina, "XML", 0);
         myThread.start();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        Log.d("TextSubmit", s);
+        adapter.search(s);
+        adapter.notifyDataSetChanged();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        this.adapter.search(s);
+        Log.d("TextChange", s);
+        return true;
     }
 }
