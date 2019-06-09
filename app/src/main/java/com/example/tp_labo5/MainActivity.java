@@ -14,7 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Handler.Callback, MyOnItemClick, SearchView.OnQueryTextListener {
@@ -53,14 +59,13 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         miDialog.myHandler = handler;
         miDialog.show(getSupportFragmentManager(), "manager" );
 
-
-
         //lo ideal es crear los hilos e iniciarlos en onStart() y luego hay que detenerlos en onStop()
             }
 
     @Override
     public boolean handleMessage(Message msg) {
         if (msg.arg2 == TEXTO) {
+          //  this.formatear(this.listNoticias);
             this.adapter.setListNoticias((List<Noticia>) msg.obj);
             this.listNoticias = this.adapter.getListNoticias();
             adapter.notifyDataSetChanged();
@@ -115,4 +120,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         Log.d("TextChange", s);
         return true;
     }
+
+
+
 }

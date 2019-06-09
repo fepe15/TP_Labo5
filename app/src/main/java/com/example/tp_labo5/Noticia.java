@@ -8,7 +8,8 @@ public class Noticia {
     private String descripcion;
     private String urlImagen;
     private String linkNoticia;
-    private String fecha;
+    private String fechaString;
+    private Date fechaOriginal;
     private String fuente;
     private byte[] fileImagen;
     private boolean cargoImagen;
@@ -60,13 +61,17 @@ public class Noticia {
 
     public void setLinkNoticia(String linkNoticia) {this.linkNoticia = linkNoticia;}
 
-    public String getFecha() { return fecha; }
+    public String getFechaString() { return fechaString; }
 
-    public void setFecha(String fecha) {this.fecha = fecha;}
+    public void setFechaString(String fecha) {this.fechaString = fecha;}
 
     public String getFuente() {return fuente;}
 
     public void setFuente(String fuente) {this.fuente = fuente;}
+
+    public Date getFechaOriginal() {return fechaOriginal;}
+
+    public void setFechaOriginal(Date fechaOriginal) {this.fechaOriginal = fechaOriginal;}
 
     public Noticia(){ this.cargoImagen = false;}
 

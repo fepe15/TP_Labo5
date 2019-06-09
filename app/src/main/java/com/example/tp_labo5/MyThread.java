@@ -36,7 +36,7 @@ public class MyThread extends Thread {
                 this.handler.sendMessage(msg);
             }
             if (this.tipo.equals("IMAGEN")){
-                Log.d("Devuelve imagen", "");
+       //       Log.d("Devuelve imagen", "");
                 byte[] imagen = connection.getImageData(url);
                 msg.obj = imagen;
                 msg.arg2 = MainActivity.IMAGEN;

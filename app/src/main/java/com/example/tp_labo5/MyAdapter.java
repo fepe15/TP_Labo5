@@ -7,7 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import android.os.Handler;
 
@@ -39,12 +46,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder( MyViewHolder holder, int position) {
 
+
         Noticia noti = this.listNoticias.get(position);
 
         holder.txtTitulo.setText(noti.getTitulo());
         holder.txtDescripcion.setText(noti.getDescripcion());
         holder.txtFuente.setText(noti.getFuente());
-        holder.txtFecha.setText(noti.getFecha());
+        holder.txtFecha.setText(noti.getFechaString());
 
          if (!noti.getCargoImagen()){
               Log.d("entrooooo", "carga segundo hilo y la imagen " + noti.getUrlImagen());
@@ -70,7 +78,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     public void setListNoticias(List<Noticia> noticias) {
-        this.listNoticias.addAll(noticias);
+
+        this.listNoticias.addAll(this.formatear(noticias));
+        this.ordenar();
         this.listNoticiasCompleta = new ArrayList<Noticia>(noticias);
     }
 
@@ -80,6 +90,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     public void setImagen(byte[] imagen,int position){
+
         this.listNoticias.get(position).setFileImagen(imagen);
         this.listNoticias.get(position).setCargoImagen(true);
     }
@@ -90,7 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         if(text.length()<=3)
         {
             this.listNoticias.addAll(this.listNoticiasCompleta);
-            Log.d("Tamaño Lista Original: " + String.valueOf(this.listNoticias.size()) , "Tamaño lista completa: "+String.valueOf(this.listNoticiasCompleta.size()));
+          //  Log.d("Tamaño Lista Original: " + String.valueOf(this.listNoticias.size()) , "Tamaño lista completa: "+String.valueOf(this.listNoticiasCompleta.size()));
             notifyDataSetChanged();
         }
         else {
@@ -104,5 +115,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             }
         }
         notifyDataSetChanged();
+    }
+
+    private List<Noticia> formatear(List<Noticia> lista){
+        Date fecha;
+        for (int i = 0; i < lista.size(); i = i+1) {
+            try {
+                DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+                fecha=df.parse(lista.get(i).getFechaString());
+                lista.get(i).setFechaOriginal(fecha);
+                lista.get(i).setFechaString(lista.get(i).getFechaString().substring(5,16));
+                Log.d("FECHA ORI::", lista.get(i).getFechaOriginal().toString());
+                Log.d("FECHA Strinngggggg::", lista.get(i).getFechaString().toString());
+
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return lista;
+    }
+
+    public void ordenar()
+    {
+        Collections.sort(this.listNoticias, new Comparator<Noticia>() {
+            public int compare(Noticia o1, Noticia o2) {
+                if (o2.getFechaOriginal() == null || o1.getFechaOriginal() == null)
+                    return 0;
+                return o2.getFechaOriginal().compareTo(o1.getFechaOriginal());
+            }
+        });
     }
 }
