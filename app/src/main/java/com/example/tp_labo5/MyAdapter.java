@@ -60,7 +60,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public int getItemCount() {
+
         return this.listNoticias.size();
+    }
+
+    public void clearLista(){
+        this.listNoticias.clear();
+//        this.listNoticiasCompleta.clear();
     }
 
     public void setListNoticias(List<Noticia> noticias) {
@@ -69,6 +75,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     public List<Noticia> getListNoticias(){
+
         return this.listNoticias;
     }
 

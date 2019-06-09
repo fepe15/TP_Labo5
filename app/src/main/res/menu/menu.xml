@@ -9,16 +9,8 @@
         >
     </item>
     <item
-        android:title="iProfesional.com"
-        android:id="@+id/txtPofesional">
-    </item>
-    <item
-        android:title="Diario Clarin"
-        android:id="@+id/txtClarin">
-    </item>
-    <item
-        android:title="Diario Perfil"
-        android:id="@+id/txtPerfil">
+        android:title="Agregar o Quitar paginas"
+        android:id="@+id/txtDialog">
     </item>
 
 </menu>

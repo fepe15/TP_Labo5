@@ -93,20 +93,12 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String pagina="";
-        if (item.getItemId()== R.id.txtPofesional){
-            pagina = "https://www.iprofesional.com/rss/tecnologia";
-        }
-        else if(item.getItemId()== R.id.txtClarin){
-            pagina = "https://www.clarin.com/rss/tecnologia/";
-        }
-        else if(item.getItemId()== R.id.txtPerfil){
-            pagina = "https://www.perfil.com/rss/tecnologia";
-        }
-        this.titulo = (String) item.getTitle();
-        MyThread myThread = new MyThread(this.handler,pagina, "XML", 0);
-        myThread.start();
+        this.adapter.clearLista();
+        MyDialog miDialog = new MyDialog();
+        miDialog.myHandler = handler;
+        miDialog.show(getSupportFragmentManager(), "manager" );
         return super.onOptionsItemSelected(item);
+
     }
 
     @Override
