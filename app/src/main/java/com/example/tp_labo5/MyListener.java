@@ -49,14 +49,11 @@ public class MyListener implements DialogInterface.OnClickListener {
         }
         MyDialog.chequeosPaginas(checkIprofesional, checkClarin, checkPerfil);
 
-        Log.d("SIZE DE PAGINAS", String.valueOf(paginas.size()));
         if (paginas.size() == 0) {
-            Log.d("Entrooooooooooo", "bigote");
             Message msg = new Message();
             msg.arg2=1;
             myHandler.sendMessage(msg);
         } else {
-            Log.d("Entroooooooo", "entro en el if de paginas");
             for (String pagina : paginas) {
                 MyThread myThread = new MyThread(this.myHandler, pagina, "XML", 0);
                 myThread.start();
