@@ -2,6 +2,7 @@ package com.example.tp_labo5;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Message;
 import android.util.Log;
 
 import android.os.Handler;
@@ -46,11 +47,20 @@ public class MyListener implements DialogInterface.OnClickListener {
             this.checkPerfil = true;
             paginas.add("https://www.perfil.com/rss/tecnologia");
         }
-        MyDialog.chequeosPaginas(checkIprofesional,checkClarin,checkPerfil);
+        MyDialog.chequeosPaginas(checkIprofesional, checkClarin, checkPerfil);
 
-        for (String pagina: paginas) {
-            MyThread myThread = new MyThread(this.myHandler, pagina, "XML", 0);
-            myThread.start();
+        Log.d("SIZE DE PAGINAS", String.valueOf(paginas.size()));
+        if (paginas.size() == 0) {
+            Log.d("Entrooooooooooo", "bigote");
+            Message msg = new Message();
+            msg.arg2=1;
+            myHandler.sendMessage(msg);
+        } else {
+            Log.d("Entroooooooo", "entro en el if de paginas");
+            for (String pagina : paginas) {
+                MyThread myThread = new MyThread(this.myHandler, pagina, "XML", 0);
+                myThread.start();
+            }
         }
     }
 }

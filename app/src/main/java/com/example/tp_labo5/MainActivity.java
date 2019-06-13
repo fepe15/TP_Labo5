@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
         this.actionBar = getSupportActionBar();
 
-        actionBar.setTitle("...NotiTecno...");
-        actionBar.setSubtitle("Elija su pagina de noticias --->");
+        actionBar.setTitle("........NoTiTeCnO........");
 
         MyDialog miDialog = new MyDialog();
         miDialog.myHandler = handler;

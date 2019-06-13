@@ -22,7 +22,7 @@ public class MyDialog extends DialogFragment {
         View viewAlert = li.inflate(R.layout.dialog,null);
 
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
-        b.setMessage("Selecciones sus paginas deseadas");
+        b.setMessage("Seleccione sus paginas deseadas");
         b.setTitle("Paginas de noticias");
         CheckBox cbIpro = viewAlert.findViewById(R.id.cbxIProfesional);
         cbIpro.setChecked(checkIprofesional);

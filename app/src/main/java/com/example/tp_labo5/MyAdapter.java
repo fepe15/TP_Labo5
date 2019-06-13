@@ -78,10 +78,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     public void setListNoticias(List<Noticia> noticias) {
-
-        this.listNoticias.addAll(this.formatear(noticias));
-        this.ordenar();
-        this.listNoticiasCompleta = new ArrayList<Noticia>(noticias);
+        if (noticias != null) {
+            noticias = this.formatear(noticias);
+            this.listNoticias.addAll(noticias);
+            this.ordenar();
+            this.listNoticiasCompleta = new ArrayList<Noticia>(noticias);
+        }
+        else {
+            this.listNoticias.clear();
+        }
     }
 
     public List<Noticia> getListNoticias(){
@@ -119,17 +124,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private List<Noticia> formatear(List<Noticia> lista){
         Date fecha;
-        for (int i = 0; i < lista.size(); i = i+1) {
-            try {
-                DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-                fecha=df.parse(lista.get(i).getFechaString());
-                lista.get(i).setFechaOriginal(fecha);
-                lista.get(i).setFechaString(lista.get(i).getFechaString().substring(5,16));
-                Log.d("FECHA ORI::", lista.get(i).getFechaOriginal().toString());
-                Log.d("FECHA Strinngggggg::", lista.get(i).getFechaString().toString());
+        if (lista != null) {
+            for (int i = 0; i < lista.size(); i = i + 1) {
+                try {
+                    DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+                    fecha = df.parse(lista.get(i).getFechaString());
+                    lista.get(i).setFechaOriginal(fecha);
+                    lista.get(i).setFechaString(lista.get(i).getFechaString().substring(5, 16));
+                    Log.d("FECHA ORI::", lista.get(i).getFechaOriginal().toString());
+                    Log.d("FECHA Strinngggggg::", lista.get(i).getFechaString().toString());
 
-            } catch (ParseException ex) {
-                ex.printStackTrace();
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         return lista;
