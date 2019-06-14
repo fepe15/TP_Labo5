@@ -1,7 +1,10 @@
 package com.example.tp_labo5;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Message;
 import android.util.Log;
 
@@ -55,9 +58,17 @@ public class MyListener implements DialogInterface.OnClickListener {
             myHandler.sendMessage(msg);
         } else {
             for (String pagina : paginas) {
-                MyThread myThread = new MyThread(this.myHandler, pagina, "XML", 0);
+                MyThread myThread = new MyThread(myHandler, pagina, "XML", 0);
                 myThread.start();
             }
         }
+
+        SharedPreferences sharedPreferences = myView.getContext().getSharedPreferences("SharePreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor e =sharedPreferences.edit();
+        e.putBoolean("Inicio",true);
+        e.putBoolean("checkIprofesional", this.checkIprofesional);
+        e.putBoolean("checkClarin", this.checkClarin);
+        e.putBoolean("checkPerfil", this.checkPerfil);
+        e.commit();
     }
 }

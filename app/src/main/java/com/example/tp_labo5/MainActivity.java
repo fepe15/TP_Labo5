@@ -1,6 +1,8 @@
 package com.example.tp_labo5;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     Handler handler;
     String titulo;
     ActionBar actionBar;
+    List<String> paginas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +55,35 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
         this.actionBar = getSupportActionBar();
 
-        actionBar.setTitle("........NoTiTeCnO........");
+        actionBar.setTitle("........NotiTecno........");
 
-        MyDialog miDialog = new MyDialog();
-        miDialog.myHandler = handler;
-        miDialog.show(getSupportFragmentManager(), "manager" );
+        SharedPreferences sharedPreferences = getSharedPreferences("SharePreference", Context.MODE_PRIVATE);
+        boolean yaInicio = sharedPreferences.getBoolean("Inicio",false);
+        boolean checkIprofesional = sharedPreferences.getBoolean("checkIprofesional",false);
+        boolean checkClarin = sharedPreferences.getBoolean("checkClarin",false);
+        boolean checkPerfil = sharedPreferences.getBoolean("checkPerfil",false);
 
-        //lo ideal es crear los hilos e iniciarlos en onStart() y luego hay que detenerlos en onStop()
+        if(!yaInicio) {
+
+            MyDialog miDialog = new MyDialog();
+            miDialog.myHandler = handler;
+            miDialog.show(getSupportFragmentManager(), "manager");
+        }
+        else if(yaInicio){
+            paginas = new ArrayList<>();
+            if (checkIprofesional){
+                paginas.add("https://www.iprofesional.com/rss/tecnologia");
             }
+            if (checkClarin){
+                paginas.add("https://www.clarin.com/rss/tecnologia/");
+            }
+            if (checkPerfil){
+                paginas.add("https://www.perfil.com/rss/tecnologia");
+            }
+            MyDialog.chequeosPaginas(checkIprofesional,checkClarin,checkPerfil);
+            runThreadPages();
+        }
+    }
 
     @Override
     public boolean handleMessage(Message msg) {
@@ -120,6 +144,14 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         return true;
     }
 
-
+    //corro los hilos de todas las paginas que estan chequeadas
+    public void runThreadPages() {
+        if (paginas.size() > 0) {
+            for (String pagina : paginas) {
+                MyThread myThread = new MyThread(handler, pagina, "XML", 0);
+                myThread.start();
+            }
+        }
+    }
 
 }
